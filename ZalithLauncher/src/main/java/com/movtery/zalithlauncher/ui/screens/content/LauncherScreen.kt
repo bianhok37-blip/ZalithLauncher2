@@ -290,13 +290,14 @@ private fun AccountAvatarRow(
     dockedSide: ActionMenuSide,
 ) {
     val account by AccountsManager.currentAccountFlow.collectAsStateWithLifecycle()
+    val currentAccount = account
 
     Row(
         modifier = modifier.padding(all = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        if (account != null) {
+        if (currentAccount != null) {
             // Hiển thị toàn thân nhân vật tại vị trí avatar cũ.
             // PetModelContent giữ nguyên luồng tải skin/cape và tương tác 3D.
             PetModelContent(
@@ -318,13 +319,13 @@ private fun AccountAvatarRow(
             verticalArrangement = Arrangement.spacedBy(0.dp)
         ) {
             Text(
-                text = account?.username ?: stringResource(R.string.account_add_new_account),
+                text = currentAccount?.username ?: stringResource(R.string.account_add_new_account),
                 maxLines = 1,
                 style = MaterialTheme.typography.titleSmall
             )
             if (account != null) {
                 Text(
-                    text = getAccountTypeName(account),
+                    text = getAccountTypeName(currentAccount),
                     style = MaterialTheme.typography.labelSmall
                 )
             }
