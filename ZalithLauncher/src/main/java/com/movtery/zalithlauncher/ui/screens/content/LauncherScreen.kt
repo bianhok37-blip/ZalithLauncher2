@@ -66,7 +66,6 @@ import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.LayoutDirection
@@ -101,7 +100,6 @@ import com.movtery.zalithlauncher.ui.guide.GuideKeys
 import com.movtery.zalithlauncher.ui.screens.NestedNavKey
 import com.movtery.zalithlauncher.ui.screens.NormalNavKey
 import com.movtery.zalithlauncher.ui.screens.content.elements.CommonVersionInfoLayout
-import com.movtery.zalithlauncher.ui.screens.content.elements.PlayerFace
 import com.movtery.zalithlauncher.ui.screens.content.elements.VersionIconImage
 import com.movtery.zalithlauncher.ui.screens.content.home.HomeGrid
 import com.movtery.zalithlauncher.ui.screens.content.home.LocalActionMenuDrag
@@ -290,13 +288,9 @@ private fun ContentMenu(
 @Composable
 private fun AccountAvatarRow(
     modifier: Modifier = Modifier,
-    avatarSize: Dp = 48.dp,
-    placeholderSize: Dp = 40.dp,
-    textSpacer: Dp = 4.dp,
-    refreshKey: Any? = null,
+    dockedSide: ActionMenuSide,
 ) {
-    val account0 by AccountsManager.currentAccountFlow.collectAsStateWithLifecycle()
-    val account = account0
+    val account by AccountsManager.currentAccountFlow.collectAsStateWithLifecycle()
 
     Row(
         modifier = modifier.padding(all = 8.dp),
@@ -304,17 +298,17 @@ private fun AccountAvatarRow(
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         if (account != null) {
-            PlayerFace(
-                modifier = Modifier.padding(horizontal = 4.dp),
-                account = account,
-                avatarSize = avatarSize,
-                refreshKey = refreshKey
+            // Hiển thị toàn thân nhân vật tại vị trí avatar cũ.
+            // PetModelContent giữ nguyên luồng tải skin/cape và tương tác 3D.
+            PetModelContent(
+                modifier = Modifier.size(width = 64.dp, height = 88.dp),
+                dockedSide = dockedSide,
             )
         } else {
             Icon(
                 modifier = Modifier
                     .padding(start = 8.dp, end = 4.dp, top = 2.dp, bottom = 2.dp)
-                    .size(placeholderSize),
+                    .size(34.dp),
                 painter = painterResource(R.drawable.ic_add),
                 contentDescription = null
             )
@@ -322,7 +316,7 @@ private fun AccountAvatarRow(
 
         Column(
             horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.spacedBy(textSpacer)
+            verticalArrangement = Arrangement.spacedBy(0.dp)
         ) {
             Text(
                 text = account?.username ?: stringResource(R.string.account_add_new_account),
@@ -565,20 +559,7 @@ private fun ActionMenuContent(
             )
             .then(modifier)
     ) {
-        val (versionLayout, petModel) = createRefs()
-
-        PetModelContent(
-            modifier = Modifier
-                .fillMaxWidth()
-                .constrainAs(petModel) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(anchor = versionLayout.top)
-                    height = Dimension.fillToConstraints
-                },
-            dockedSide = dockedSide,
-        )
+        val (versionLayout) = createRefs()
 
         Column(
             modifier = Modifier
@@ -604,9 +585,7 @@ private fun ActionMenuContent(
             ) {
                 AccountAvatarRow(
                     modifier = Modifier.fillMaxWidth(),
-                    avatarSize = 38.dp,
-                    placeholderSize = 34.dp,
-                    textSpacer = 0.dp,
+                    dockedSide = dockedSide,
                 )
             }
 
