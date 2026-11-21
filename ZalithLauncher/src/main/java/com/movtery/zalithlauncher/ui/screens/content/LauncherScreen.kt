@@ -323,7 +323,7 @@ private fun AccountAvatarRow(
                 maxLines = 1,
                 style = MaterialTheme.typography.titleSmall
             )
-            if (account != null) {
+            if (currentAccount != null) {
                 Text(
                     text = getAccountTypeName(currentAccount),
                     style = MaterialTheme.typography.labelSmall
