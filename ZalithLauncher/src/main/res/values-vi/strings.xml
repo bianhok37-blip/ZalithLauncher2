@@ -1261,4 +1261,5 @@
     <string name="favorite_add">Yêu thích</string>
     <string name="favorite_added">Được yêu thích</string>
     <string name="favorites_empty">Bạn chưa yêu thích. Hãy đi tìm và yêu thích những tài nguyên bạn thích!</string>
+    <string name="unofficial_modified_version">Phiên bản chỉnh sửa không chính thức</string>
 </resources>
