@@ -64,7 +64,7 @@ jobs:
       - name: Setup Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
+          targets: aarch64-linux-android
 
       - name: Cache Rust build
         uses: actions/cache@v4
@@ -94,6 +94,7 @@ jobs:
           echo "Using NDK at $ndk"
           test -f "$ndk/source.properties"
           echo "ANDROID_NDK_HOME=$ndk" >> "$GITHUB_ENV"
+          echo "ANDROID_NDK_ROOT=$ndk" >> "$GITHUB_ENV"
 
       - name: Build APK for ${{ matrix.arch }}
         env:
