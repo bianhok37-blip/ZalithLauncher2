@@ -20,6 +20,8 @@
      applies to every translated strings.xml, not only this source file.
 -->
 <resources>
+    <!-- Label shown in the main interface to identify this fork. -->
+    <string name="unofficial_modified_version">Unofficial Modified Version</string>
     <string name="generic_cancel">Cancel</string>
     <string name="generic_confirm">Confirm</string>
     <string name="generic_error">Error</string>
