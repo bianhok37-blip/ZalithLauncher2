@@ -109,11 +109,11 @@ jobs:
 
       - name: Upload Release APK for ${{ matrix.arch }}
         if: inputs.variant == 'Release'
-        continue-on-error: true
         uses: actions/upload-artifact@v7
         with:
           name: release apk (${{ matrix.arch }})
           path: ZalithLauncher/build/outputs/apk/release/*.apk
+          if-no-files-found: error
 
       - name: Upload Release Mapping for ${{ matrix.arch }}
         if: inputs.variant == 'Release'
@@ -125,8 +125,8 @@ jobs:
 
       - name: Upload Debug APK for ${{ matrix.arch }}
         if: ${{ (inputs.variant || 'Debug') == 'Debug' }}
-        continue-on-error: true
         uses: actions/upload-artifact@v7
         with:
           name: debug apk (${{ matrix.arch }})
           path: ZalithLauncher/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
