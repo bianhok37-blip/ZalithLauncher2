@@ -214,6 +214,13 @@ fun MainScreen(
                 },
             )
 
+            Text(
+                text = stringResource(R.string.unofficial_modified_version),
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 2.dp),
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.secondary
+            )
+
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
