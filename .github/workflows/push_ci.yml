@@ -10,6 +10,7 @@ jobs:
   Build:
     uses: ./.github/workflows/build.yml
     with:
+      # CI push builds the installable Debug APK (no Release keystore required).
       variant: Debug
     secrets:
       KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
